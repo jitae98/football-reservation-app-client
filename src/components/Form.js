@@ -64,11 +64,13 @@ const Form = ({
   return (
     <form onSubmit={handleSubmit}>
       <h1>{title}</h1>
-      {children({
-        values,
-        errors,
-        handleChange,
-      })}
+      {typeof children === "function"
+        ? children({
+            values,
+            errors,
+            handleChange,
+          })
+        : children}
       {spanText && <span>{spanText}</span>}
       {linkText && linkHref && <a href={linkHref}>{linkText}</a>}
       <button type="submit">{buttonText}</button>
