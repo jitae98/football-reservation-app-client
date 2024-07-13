@@ -2,7 +2,7 @@ import React from "react";
 import SocialIcons from "./SocialIcons.js";
 import Form from "./Form.js";
 
-const FormContainer = ({ formType }) => {
+const FormContainer = ({ formType, handleLoginSuccess }) => {
   return (
     <div className={`form-container ${formType}`}>
       <Form
@@ -11,14 +11,15 @@ const FormContainer = ({ formType }) => {
         spanText={
           formType === "sign-up"
             ? "or use your email for registration"
-            : "or use your email password"
+            : "or use your email and password"
         }
         linkText={formType === "sign-in" ? "Forget Your Password?" : ""}
         linkHref={formType === "sign-in" ? "#" : ""}
+        handleLoginSuccess={handleLoginSuccess}
       >
-        <SocialIcons />
         {({ values, errors, handleChange }) => (
           <>
+            <SocialIcons />
             {formType === "sign-up" && (
               <div>
                 <input
