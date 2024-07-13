@@ -9,9 +9,7 @@ const FormContainer = ({ formType, handleLoginSuccess }) => {
         title={formType === "sign-up" ? "Create Account" : "Sign In"}
         buttonText={formType === "sign-up" ? "Sign Up" : "Sign In"}
         spanText={
-          formType === "sign-up"
-            ? "or use your email for registration"
-            : "or use your email and password"
+          formType === "sign-up" ? "or use your email for registration" : ""
         }
         linkText={formType === "sign-in" ? "Forget Your Password?" : ""}
         linkHref={formType === "sign-in" ? "#" : ""}
@@ -37,7 +35,7 @@ const FormContainer = ({ formType, handleLoginSuccess }) => {
                 type="email"
                 name="email"
                 placeholder="Email"
-                value={values.email}
+                value={values.email || ""}
                 onChange={handleChange}
               />
               {errors.email && <span className="error">{errors.email}</span>}
@@ -54,6 +52,7 @@ const FormContainer = ({ formType, handleLoginSuccess }) => {
                 <span className="error">{errors.password}</span>
               )}
             </div>
+            {formType === "sign-in" && <a href="#">Forget Your Password?</a>}
           </>
         )}
       </Form>

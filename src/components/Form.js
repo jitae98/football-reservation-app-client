@@ -4,14 +4,16 @@ import {
   validateEmail,
   validatePassword,
 } from "./Validations.js";
+import SocialIcons from "./SocialIcons.js";
 
 const Form = ({
   title,
-  children,
   buttonText,
   spanText,
   linkText,
   linkHref,
+  handleLoginSuccess,
+  formType,
 }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -26,8 +28,11 @@ const Form = ({
 
   const validate = () => {
     const newErrors = {};
-    // Validation logic
-    if (values.name !== undefined && !validateRequired(values.name)) {
+    if (
+      formType === "sign-up" &&
+      values.name !== undefined &&
+      !validateRequired(values.name)
+    ) {
       newErrors.name = "Name is required";
     }
     if (!validateEmail(values.email)) {
@@ -41,36 +46,63 @@ const Form = ({
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
       console.log("Form submitted successfully:", values);
-      //   try {
-      //     const response = await fetch('https://example.com/api/submit', {
-      //       method: 'POST',
-      //       headers: {
-      //         'Content-Type': 'application/json',
-      //       },
-      //       body: JSON.stringify(values),
-      //     });
-      //     const result = await response.json();
-      //     console.log('Form submitted successfully:', result);
-      //   } catch (error) {
-      //     console.error('Form submission error:', error);
-      //   }
+      handleLoginSuccess();
+      try {
+        const response = await fetch("https://localhost:3000", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        });
+        const result = await response.json();
+        console.log("Form submitted successfully:", result);
+      } catch (error) {
+        console.error("Form submission error:", error);
+      }
     }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <h1>{title}</h1>
-      {typeof children === "function"
-        ? children({
-            values,
-            errors,
-            handleChange,
-          })
-        : children}
+      <SocialIcons />
+      {formType === "sign-up" && (
+        <div>
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            value={values.name || ""}
+            onChange={handleChange}
+          />
+          {errors.name && <span className="error">{errors.name}</span>}
+        </div>
+      )}
+      <div>
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={values.email || ""}
+          onChange={handleChange}
+        />
+        {errors.email && <span className="error">{errors.email}</span>}
+      </div>
+      <div>
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={values.password || ""}
+          onChange={handleChange}
+        />
+        {errors.password && <span className="error">{errors.password}</span>}
+      </div>
       {spanText && <span>{spanText}</span>}
       {linkText && linkHref && <a href={linkHref}>{linkText}</a>}
       <button type="submit">{buttonText}</button>
