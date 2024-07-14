@@ -4,7 +4,7 @@ import {
   validateEmail,
   validatePassword,
 } from "./Validations";
-import SocialIcons from "./SocialIcons";
+import SocialIcons from "./SocialIcons.js";
 
 const Form = ({
   title,
