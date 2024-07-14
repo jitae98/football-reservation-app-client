@@ -1,61 +1,52 @@
 import React from "react";
-import SocialIcons from "./SocialIcons.js";
 import Form from "./Form.js";
 
-const FormContainer = ({ formType, handleLoginSuccess }) => {
+const FormContainer = ({ formType, handleLoginSuccess, toggleFormType }) => {
   return (
-    <div className={`form-container ${formType}`}>
-      <Form
-        title={formType === "sign-up" ? "Create Account" : "Sign In"}
-        buttonText={formType === "sign-up" ? "Sign Up" : "Sign In"}
-        spanText={
-          formType === "sign-up" ? "or use your email for registration" : ""
-        }
-        linkText={formType === "sign-in" ? "Forget Your Password?" : ""}
-        linkHref={formType === "sign-in" ? "#" : ""}
-        handleLoginSuccess={handleLoginSuccess}
-      >
-        {({ values, errors, handleChange }) => (
-          <>
-            <SocialIcons />
-            {formType === "sign-up" && (
-              <div>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="Name"
-                  value={values.name || ""}
-                  onChange={handleChange}
-                />
-                {errors.name && <span className="error">{errors.name}</span>}
-              </div>
-            )}
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email"
-                value={values.email || ""}
-                onChange={handleChange}
-              />
-              {errors.email && <span className="error">{errors.email}</span>}
-            </div>
-            <div>
-              <input
-                type="password"
-                name="password"
-                placeholder="Password"
-                value={values.password || ""}
-                onChange={handleChange}
-              />
-              {errors.password && (
-                <span className="error">{errors.password}</span>
-              )}
-            </div>
-            {formType === "sign-in" && <a href="#">Forget Your Password?</a>}
-          </>
-        )}
-      </Form>
+    <div
+      className={`container ${formType === "sign-up" ? "active" : ""}`}
+      id="container"
+    >
+      <div className="form-container sign-up">
+        <Form
+          title="Create Account"
+          buttonText="Sign Up"
+          spanText="or use your email for registration"
+          handleLoginSuccess={handleLoginSuccess}
+          formType="sign-up"
+        />
+      </div>
+      <div className="form-container sign-in">
+        <Form
+          title="Sign In"
+          buttonText="Sign In"
+          spanText="or use your email password"
+          linkText="Forget Your Password?"
+          linkHref="#"
+          handleLoginSuccess={handleLoginSuccess}
+          formType="sign-in"
+        />
+      </div>
+      <div className="toggle-container">
+        <div className="toggle">
+          <div className="toggle-panel toggle-left">
+            <h1>Welcome Back!</h1>
+            <p>Enter your personal details to use all of site features</p>
+            <button className="ghost" onClick={() => toggleFormType("sign-in")}>
+              Sign In
+            </button>
+          </div>
+          <div className="toggle-panel toggle-right">
+            <h1>Hello, Friend!</h1>
+            <p>
+              Register with your personal details to use all of site features
+            </p>
+            <button className="ghost" onClick={() => toggleFormType("sign-up")}>
+              Sign Up
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

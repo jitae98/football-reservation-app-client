@@ -3,8 +3,8 @@ import {
   validateRequired,
   validateEmail,
   validatePassword,
-} from "./Validations.js";
-import SocialIcons from "./SocialIcons.js";
+} from "./Validations";
+import SocialIcons from "./SocialIcons";
 
 const Form = ({
   title,
@@ -28,11 +28,7 @@ const Form = ({
 
   const validate = () => {
     const newErrors = {};
-    if (
-      formType === "sign-up" &&
-      values.name !== undefined &&
-      !validateRequired(values.name)
-    ) {
+    if (formType === "sign-up" && !validateRequired(values.name)) {
       newErrors.name = "Name is required";
     }
     if (!validateEmail(values.email)) {
