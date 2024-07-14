@@ -3,7 +3,7 @@ import {
   validateRequired,
   validateEmail,
   validatePassword,
-} from "./Validations";
+} from "./Validations.js";
 import SocialIcons from "./SocialIcons.js";
 
 const Form = ({
