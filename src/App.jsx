@@ -10,7 +10,7 @@ import ToggleContainer from "./components/ToggleContainer.js";
 import BookingPage from "./screens/BookingPage.jsx";
 import MainPage from "./screens/MainPage.jsx";
 import Login from "./screens/Login.jsx";
-import "./App.css";
+// import "./App.css";
 
 const App = () => {
   const [isSignUpActive, setIsSignUpActive] = useState(false);
@@ -31,7 +31,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        {/* <Route path="/" element={<Navigate to="/login" />} />
         <Route
           path="/login"
           element={
@@ -67,11 +67,8 @@ const App = () => {
               />
             </div>
           }
-        />
-        <Route
-          path="/MainPage"
-          element={isAuthenticated ? <MainPage /> : <Navigate to="/login" />}
-        />
+        /> */}
+        <Route path="/" element={<MainPage />} />
 
         <Route path="/booking" element={<BookingPage />} />
       </Routes>

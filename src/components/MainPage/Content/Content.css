@@ -18,6 +18,7 @@
   font-size: 2rem;
   background-size: 100%; /* Set initial background size */
   transition: background-size 0.5s ease; /* Smooth transition for background size */
+  box-shadow: rgba(203, 203, 203, 0.35) 0px 5px 15px;
 }
 
 .fieldtypeList {
@@ -30,8 +31,8 @@
 .field1 {
   background: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.65)
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
     ),
     url("./chien-thuat-bong-da-banner.jpg");
   background-size: 250%;
@@ -41,8 +42,8 @@
 .field2 {
   background: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.65)
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
     ),
     url("./media/tong-hop-kich-thuoc-san-bong-da-7-nguoi-dat-chuan-moi-nhat-1294.jpg");
   background-size: 250%;
@@ -52,8 +53,8 @@
 .field3 {
   background: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.65),
-      rgba(0, 0, 0, 0.65)
+      rgba(0, 0, 0, 0.35),
+      rgba(0, 0, 0, 0.35)
     ),
     url("./media/kich-thuoc-san-bong-da-1-jpeg.webp");
   background-size: 250%;
@@ -64,6 +65,8 @@
 .field2:hover,
 .field3:hover {
   background-size: 280%; /* Increase the background size to zoom in */
+  box-shadow: rgba(203, 203, 203, 0.811) 0px 5px 15px;
+
 }
 
 .orderBtn {
