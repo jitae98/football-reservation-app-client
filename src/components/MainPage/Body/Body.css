@@ -1,0 +1,10 @@
+.bodyWrapper {
+  background: #ffe89e6b;
+  display: flex;
+  flex-direction: row;
+}
+@media (max-width: 768px) {
+  .bodyWrapper {
+    flex-direction: column;
+  }
+}
