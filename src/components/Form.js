@@ -38,6 +38,9 @@ const Form = ({
       newErrors.password =
         "Password must be at least 8 characters long and include a number and a special character";
     }
+    if (formType === "sign-up" && values.password !== values.confirmPassword) {
+      newErrors.confirmPassword = "Passwords do not match";
+    }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
@@ -45,20 +48,40 @@ const Form = ({
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (validate()) {
-      console.log("Form submitted successfully:", values);
-      handleLoginSuccess();
       try {
-        const response = await fetch("https://localhost:3000", {
+        const endpoint =
+          formType === "sign-up"
+            ? "http://localhost:3000/api/users/register"
+            : "http://localhost:3000/api/users/login";
+        const response = await fetch(endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(values),
         });
-        const result = await response.json();
-        console.log("Form submitted successfully:", result);
+        if (response.ok) {
+          const result = await response.json();
+          console.log("Form submitted successfully:", result);
+          if (formType === "sign-in") {
+            localStorage.setItem("token", result.token);
+            handleLoginSuccess();
+            // Redirect to Main Page
+            window.location.href = "/main";
+          } else {
+            handleLoginSuccess();
+          }
+        } else {
+          console.error("Form submission error:", response.statusText);
+          if (formType === "sign-up") {
+            window.location.reload();
+          }
+        }
       } catch (error) {
         console.error("Form submission error:", error);
+        if (formType === "sign-up") {
+          window.location.reload();
+        }
       }
     }
   };
@@ -99,6 +122,20 @@ const Form = ({
         />
         {errors.password && <span className="error">{errors.password}</span>}
       </div>
+      {formType === "sign-up" && (
+        <div>
+          <input
+            type="password"
+            name="confirmPassword"
+            placeholder="Confirm Password"
+            value={values.confirmPassword || ""}
+            onChange={handleChange}
+          />
+          {errors.confirmPassword && (
+            <span className="error">{errors.confirmPassword}</span>
+          )}
+        </div>
+      )}
       {spanText && <span>{spanText}</span>}
       {linkText && linkHref && <a href={linkHref}>{linkText}</a>}
       <button type="submit">{buttonText}</button>
