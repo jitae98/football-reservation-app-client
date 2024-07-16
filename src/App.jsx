@@ -7,7 +7,9 @@ import {
 } from "react-router-dom";
 import FormContainer from "./components/FormContainer.js";
 import ToggleContainer from "./components/ToggleContainer.js";
-import Main from "./components/Main.js";
+import BookingPage from "./screens/BookingPage.jsx";
+import MainPage from "./screens/MainPage.jsx";
+import Login from "./screens/Login.jsx";
 import "./App.css";
 
 const App = () => {
@@ -29,6 +31,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/login" />} />
         <Route
           path="/login"
           element={
@@ -66,10 +69,11 @@ const App = () => {
           }
         />
         <Route
-          path="/main"
-          element={isAuthenticated ? <Main /> : <Navigate to="/login" />}
+          path="/MainPage"
+          element={isAuthenticated ? <MainPage /> : <Navigate to="/login" />}
         />
-        <Route path="/" element={<Navigate to="/login" />} />
+
+        <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </Router>
   );
