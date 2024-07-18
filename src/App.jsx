@@ -67,10 +67,7 @@ const App = () => {
               className={`container ${isSignUpActive ? "active" : ""}`}
               id="container"
             >
-              <FormContainer
-                formType="sign-in"
-                handleLoginSuccess={handleLoginSuccess}
-              />
+              <FormContainer formType="sign-in" handleLogin={handleLogin} />
               <ToggleContainer
                 onSignInClick={handleSignInClick}
                 onSignUpClick={handleSignUpClick}
@@ -87,7 +84,7 @@ const App = () => {
             >
               <FormContainer
                 formType="sign-up"
-                handleLoginSuccess={handleLoginSuccess}
+                handleRegister={handleRegister}
               />
               <ToggleContainer
                 onSignInClick={handleSignInClick}
@@ -100,7 +97,6 @@ const App = () => {
           path="/MainPage"
           element={isAuthenticated ? <MainPage /> : <Navigate to="/login" />}
         />
-
         <Route path="/booking" element={<BookingPage />} />
       </Routes>
     </Router>
