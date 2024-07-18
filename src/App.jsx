@@ -5,11 +5,11 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
+import axios from "axios";
 import FormContainer from "./components/FormContainer.js";
 import ToggleContainer from "./components/ToggleContainer.js";
 import BookingPage from "./screens/BookingPage.jsx";
 import MainPage from "./screens/MainPage.jsx";
-import Login from "./screens/Login.jsx";
 import "./App.css";
 
 const App = () => {
@@ -26,6 +26,34 @@ const App = () => {
 
   const handleLoginSuccess = () => {
     setIsAuthenticated(true);
+  };
+
+  const handleRegister = async (username, password) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/users/register",
+        { username, password }
+      );
+      if (response.status === 201) {
+        handleLoginSuccess();
+      }
+    } catch (error) {
+      console.error("Registration failed:", error);
+    }
+  };
+
+  const handleLogin = async (username, password) => {
+    try {
+      const response = await axios.post("http://localhost:8080/users/login", {
+        username,
+        password,
+      });
+      if (response.status === 200) {
+        handleLoginSuccess();
+      }
+    } catch (error) {
+      console.error("Login failed:", error);
+    }
   };
 
   return (
