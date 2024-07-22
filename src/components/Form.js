@@ -53,8 +53,8 @@ const Form = ({
       try {
         const endpoint =
           formType === "sign-up"
-            ? "http://localhost:8080/api/users/register"
-            : "http://localhost:8080/api/users/login";
+            ? "http://localhost:8080/auth/register"
+            : "http://localhost:8080/auth/login";
         const response = await fetch(endpoint, {
           method: "POST",
           headers: {
@@ -69,7 +69,7 @@ const Form = ({
             localStorage.setItem("token", result.token);
             handleLoginSuccess();
             // Redirect to Main Page
-            navigate("/main");
+            navigate("/MainPage");
           } else {
             handleLoginSuccess();
             navigate("/main");
