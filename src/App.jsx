@@ -67,7 +67,11 @@ const App = () => {
               className={`container ${isSignUpActive ? "active" : ""}`}
               id="container"
             >
-              <FormContainer formType="sign-in" handleLogin={handleLogin} />
+              <FormContainer
+                formType="sign-in"
+                handleLogin={handleLogin}
+                handleLoginSuccess={handleLoginSuccess}
+              />
               <ToggleContainer
                 onSignInClick={handleSignInClick}
                 onSignUpClick={handleSignUpClick}

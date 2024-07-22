@@ -5,6 +5,7 @@ import {
   validatePassword,
 } from "./Validations.js";
 import SocialIcons from "./SocialIcons.js";
+import { useNavigate } from "react-router-dom";
 
 const Form = ({
   title,
@@ -17,6 +18,7 @@ const Form = ({
 }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -67,9 +69,10 @@ const Form = ({
             localStorage.setItem("token", result.token);
             handleLoginSuccess();
             // Redirect to Main Page
-            window.location.href = "/MainPage";
+            navigate("/main");
           } else {
             handleLoginSuccess();
+            navigate("/main");
           }
         } else {
           console.error("Form submission error:", response.statusText);
