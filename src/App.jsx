@@ -89,6 +89,7 @@ const App = () => {
               <FormContainer
                 formType="sign-up"
                 handleRegister={handleRegister}
+                handleLoginSuccess={handleLoginSuccess}
               />
               <ToggleContainer
                 onSignInClick={handleSignInClick}
