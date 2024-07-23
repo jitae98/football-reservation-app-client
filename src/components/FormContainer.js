@@ -14,6 +14,7 @@ const FormContainer = ({ formType, handleLoginSuccess, toggleFormType }) => {
           spanText="or use your email for registration"
           handleLoginSuccess={handleLoginSuccess}
           formType="sign-up"
+          toggleFormType={toggleFormType}
         />
       </div>
       <div className="form-container sign-in">
@@ -25,6 +26,7 @@ const FormContainer = ({ formType, handleLoginSuccess, toggleFormType }) => {
           linkHref="#"
           handleLoginSuccess={handleLoginSuccess}
           formType="sign-in"
+          toggleFormType={toggleFormType}
         />
       </div>
       <div className="toggle-container">
