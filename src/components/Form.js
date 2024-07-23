@@ -15,6 +15,7 @@ const Form = ({
   linkHref,
   handleLoginSuccess,
   formType,
+  toggleFormType,
 }) => {
   const [values, setValues] = useState({});
   const [errors, setErrors] = useState({});
@@ -68,17 +69,15 @@ const Form = ({
           if (formType === "sign-in") {
             localStorage.setItem("token", result.token);
             handleLoginSuccess();
-            // Redirect to Main Page
-            navigate("/MainPage");
+            navigate("/MainPage"); // Chuyển hướng đến trang chính sau khi đăng nhập thành công
           } else {
-            handleLoginSuccess();
-            navigate("/main");
+            // Đăng ký thành công, chuyển sang form đăng nhập và thực hiện đăng nhập
+            toggleFormType("sign-in");
+            await handleSubmitLogin(result.email, values.password);
           }
         } else {
-          console.error("Form submission error:", response.statusText);
-          if (formType === "sign-up") {
-            window.location.reload();
-          }
+          const errorResult = await response.json();
+          console.error("Form submission error:", errorResult.message);
         }
       } catch (error) {
         console.error("Form submission error:", error);
@@ -86,6 +85,29 @@ const Form = ({
           window.location.reload();
         }
       }
+    }
+  };
+
+  const handleSubmitLogin = async (email, password) => {
+    try {
+      const response = await fetch("http://localhost:8080/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      if (response.ok) {
+        const result = await response.json();
+        localStorage.setItem("token", result.token);
+        handleLoginSuccess();
+        navigate("/MainPage"); // Chuyển hướng đến trang chính sau khi đăng nhập thành công
+      } else {
+        const errorResult = await response.json();
+        console.error("Login error:", errorResult.message);
+      }
+    } catch (error) {
+      console.error("Login error:", error);
     }
   };
 
